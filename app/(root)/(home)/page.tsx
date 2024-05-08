@@ -1,20 +1,10 @@
-'use client'
-
 import React, { useEffect, useState } from 'react'
+import HomeTime from '@/components/HomeTime';
 
 const Home = () => {
     
-    const [now, setNow] = useState(new Date());
-    const dayData = (new Intl.DateTimeFormat('en-US', {dateStyle: 'full'})).format();
     const UpcomingMeeting = true;
     
-    useEffect(() => {
-        const secondsLeft = (60 - now.getSeconds()) * 1000;
-        setTimeout(() => {
-            setNow(new Date())
-        }, secondsLeft);
-    }, [now])
-
     return (
         <section className='flex size-full flex-col gap-10'>
             
@@ -30,9 +20,7 @@ const Home = () => {
 
                     <div className="flex flex-col gap-2">
 
-                        <h1 className='text-4xl font-extrabold lg:text-7xl'>{now.toLocaleTimeString('en-US', {hour12: true, timeStyle: 'short'})}</h1>
-
-                        <p className="text-lg font-medium text-sky-1 lg:text-2xl">{dayData}</p>
+                        <HomeTime />
                     </div>
                 </div>
             </div>
