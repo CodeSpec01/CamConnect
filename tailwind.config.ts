@@ -24,6 +24,9 @@ const config = {
           2: "#1C1F2E",
           3: "#446187c9",
         },
+        sky: {
+          1: "#C9DDFF",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -57,6 +60,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      backgroundImage: {
+        hero: "url('/images/hero-background.png')"
       },
       borderRadius: {
         lg: "var(--radius)",

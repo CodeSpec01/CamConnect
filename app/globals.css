@@ -79,3 +79,47 @@
 .cl-socialButtonsProviderIcon__github {
   filter: invert(1);
 }
+
+.cl-button__manageAccount{
+  filter: invert(1);
+}
+
+.cl-button__signOut{
+  filter: invert(1);
+}
+
+.cl-button__account{
+  filter: invert(1);
+}
+
+.cl-button__security{
+  filter: invert(1);
+}
+
+.cl-active{
+  filter: invert(1);
+}
+
+.cl-badge{
+  filter: invert(1);
+}
+
+.cl-internal-rvg68x{
+  filter: invert(1);
+}
+
+.cl-providerIcon__github{
+  filter: invert(1);
+}
+
+.glassmorphism {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(4px);
+  --webkit-backdrop-filter: blur(4px);
+}
+
+.glassmorphism2 {
+  background: rgba(18,17,17,0.25);
+  backdrop-filter: blur(8px);
+  --webkit-backdrop-filter: blur(8px);
+}
