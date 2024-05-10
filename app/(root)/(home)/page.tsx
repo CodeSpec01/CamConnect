@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import HomeTime from '@/components/HomeTime';
+import MeetingTypeList from '@/components/MeetingTypeList';
 
 const Home = () => {
     
@@ -24,6 +25,8 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            <MeetingTypeList />
         </section>
     )
 }
