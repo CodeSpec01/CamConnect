@@ -33,11 +33,12 @@ const MeetingModal = ({ isOpen, onClose, title, className, children, handleClick
 
                     {children}
 
-                    <button className='bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0' onClick={handleClick}>
+                    <button className='bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0 py-2 rounded items-center justify-center flex gap-1' onClick={handleClick}>
 
                         {buttonIcon && (
                             <Image src={buttonIcon} alt='button icon' width={13} height={13} />
                         )} &nbsp;
+                        
                         {buttonText || 'Schedule Meeting'}
                     </button>
                 </div>
