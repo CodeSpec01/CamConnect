@@ -43,6 +43,8 @@ export const useGetCalls = () => {
                 setIsLoading(false);
             }
         }
+
+        loadCalls();
     }, [client, user?.id])
     
     const now = new Date();
@@ -57,7 +59,7 @@ export const useGetCalls = () => {
     return {
         endedCalls,
         upcomingCalls,
-        recordings: calls,
+        callRecordings: calls,
         isLoading
     }
 }
