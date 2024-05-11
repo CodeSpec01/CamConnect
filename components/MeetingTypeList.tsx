@@ -9,6 +9,7 @@ import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import ReactDatePicker from 'react-datepicker';
+import { Input } from "@/components/ui/input"
 
 const MeetingTypeList = () => {
 
@@ -56,7 +57,7 @@ const MeetingTypeList = () => {
             if (!values.description) router.push(`/meeting/${call.id}`);
 
             console.log(description)
-            
+
             toast({ title: "Meeting Created !" })
 
         } catch (error) {
@@ -180,9 +181,25 @@ const MeetingTypeList = () => {
                 onClose={() => setMeetingState(undefined)}
                 title="Start an Instant Meeting"
                 className="text-center"
-                buttonText="StartMeeting"
+                buttonText="Start Meeting"
                 handleClick={createMeeting}
             />
+
+            <MeetingModal
+                isOpen={meetingState === "isJoiningMeeting"}
+                onClose={() => setMeetingState(undefined)}
+                title="Join a Meeting"
+                className="text-center"
+                buttonText="Join Meeting"
+                handleClick={createMeeting}
+            >
+
+                <Input 
+                    placeholder="Enter meeting Link"
+                    className="border-none bg-dark-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    onChange={(e) => setValues({...values, link: e.target.value})}
+                />
+            </MeetingModal>
         </section>
     )
 }

@@ -1,10 +1,89 @@
-import React from 'react'
+'use client'
+
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useGetCallById } from "@/hooks/useGetCallById";
+import { useUser } from "@clerk/nextjs"
+import { descending, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { useRouter } from "next/navigation";
+
+const Table = ({ title, description }: { title: string, description: string }) => (
+  <div className="flex flex-col items-start gap-2 xl:flex-row flex-wrap w-full">
+
+    <h1 className="text-base font-medium to-sky-1 lg:text-xl xl:min-w-32 flex-wrap">{title}:</h1>
+
+    <h1 className="truncate text-sm font-bold max-sm:max-w-[320px] lg:text-xl flex-wrap">{description}</h1>
+  </div>
+)
 
 const Personal = () => {
+
+  const { user } = useUser();
+  const meetingId = user?.id;
+  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`;
+  const { toast } = useToast();
+  const client = useStreamVideoClient();
+  const { call } = useGetCallById(meetingId!);
+  const router = useRouter();
+
+  const startRoom = async () => {
+
+    if (!client || !user) return;
+
+
+    if (!call) {
+
+      const newCall = client.call('default', meetingId!);
+
+      await newCall?.getOrCreate({
+        data: {
+
+          starts_at: new Date().toISOString(),
+          custom: {
+            description: "Personal Meeting Room accessed"
+          }
+        }
+      })
+    }
+
+    router.push(`/meeting/${meetingId}?personal=true`)
+
+  }
+
   return (
-    <div>
-      Personal
-    </div>
+
+    <section className=' flex size-full flex-col gap-10 flex-wrap'>
+
+      <h1 className=' text-3xl font-bold flex-wrap'>
+        Personal Room
+      </h1>
+
+      <div className="flex w-full flex-col gap-8 xl:max-w-[900px] flex-wrap">
+
+        <Table title="Topic" description={`${user?.username}'s personal meeting room`} />
+
+        <Table title="Meeting ID" description={meetingId!} />
+
+        <Table title="Invite Link" description={meetingLink} />
+      </div>
+
+      <div className=" flex gap-5">
+
+        <Button className="bg-blue-1" onClick={startRoom} >
+
+          Start Meeting
+        </Button>
+
+        <Button className="bg-dark-3" onClick={() => {
+
+          navigator.clipboard.writeText(meetingLink);
+          toast({ title: 'Link Copied !' });
+        }}>
+
+          Copy Invitation
+        </Button>
+      </div>
+    </section>
   )
 }
 
