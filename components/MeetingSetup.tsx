@@ -3,6 +3,7 @@
 import { Call, DeviceSettings, VideoPreview, useCall } from '@stream-io/video-react-sdk'
 import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button';
+import Loader from './Loader';
 
 const MeetingSetup = ({setIsSetupComplete} : {setIsSetupComplete : (value: boolean) => void}) => {
 
@@ -29,7 +30,12 @@ const MeetingSetup = ({setIsSetupComplete} : {setIsSetupComplete : (value: boole
   }, [isMicCamToggledOn, call?.camera, call?.microphone])
 
   return (
-    <div className='flex h-screen w-full flex-col items-center justify-center gap-3'>
+
+    <>
+
+    {!timer && <Loader />}
+
+    {timer && <div className='flex h-screen w-full flex-col items-center justify-center gap-3'>
 
       <h1 className='text-2xl font-bold'>Setup</h1>
 
@@ -57,7 +63,9 @@ const MeetingSetup = ({setIsSetupComplete} : {setIsSetupComplete : (value: boole
       }}>
         Join Meeting
       </Button>
-    </div>
+    </div>}
+
+    </>
   )
 }
 
