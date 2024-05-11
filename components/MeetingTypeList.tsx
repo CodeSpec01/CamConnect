@@ -55,7 +55,10 @@ const MeetingTypeList = () => {
 
             if (!values.description) router.push(`/meeting/${call.id}`);
 
+            console.log(description)
+            
             toast({ title: "Meeting Created !" })
+
         } catch (error) {
 
             console.log(error)
@@ -107,7 +110,14 @@ const MeetingTypeList = () => {
                     isOpen={meetingState === "isScheduleMeeting"}
                     onClose={() => setMeetingState(undefined)}
                     title="Schedule a Meeting"
-                    handleClick={createMeeting}
+                    handleClick={async () => {
+                        await createMeeting()
+                        setValues({
+                            dateTime: new Date(),
+                            description: "",
+                            link: "",
+                        })
+                    }}
                 >
                     <div className="flex flex-col gap-2.5">
 
@@ -133,7 +143,7 @@ const MeetingTypeList = () => {
 
                         <ReactDatePicker
                             selected={values.dateTime}
-                            onChange={(date) => setValues({...values, dateTime: date! })}
+                            onChange={(date) => setValues({ ...values, dateTime: date! })}
                             showTimeSelect
                             timeFormat="HH:mm"
                             timeIntervals={15}
@@ -151,6 +161,13 @@ const MeetingTypeList = () => {
                     handleClick={() => {
                         navigator.clipboard.writeText(meetingLink)
                         toast({ title: "Link Copied" })
+                        setTimeout(() => {
+                            setValues({
+                                dateTime: new Date(),
+                                description: "",
+                                link: "",
+                            })
+                        }, 3000);
                     }}
                     image="/icons/checked.svg"
                     buttonIcon="/icons/copy.svg"
