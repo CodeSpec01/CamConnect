@@ -23,7 +23,7 @@ const MeetingRoom = () => {
   const callingState = useCallCallingState();
   const router = useRouter();
   const pathName = usePathname();
-  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${pathName}`
+  const meetingLink = process.env.NEXT_PUBLIC_BASE_URL + pathName
   const { toast } = useToast()
 
   if (callingState != CallingState.JOINED) return <Loader />
@@ -100,12 +100,12 @@ const MeetingRoom = () => {
 
             <Image src='/icons/info.svg' alt='info' height={20} width={20} className='invert' />
 
-            <DropdownMenuContent className='border-dark-2 bg-dark-2 text-white'>
-
-              <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]' onClick={() => {
+            <DropdownMenuContent className='border-dark-2 bg-dark-2 text-white' onClick={() => {
                 navigator.clipboard.writeText(meetingLink);
                 toast({title: "Link Copied"})
               }}>
+
+              <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]'>
                 <p>
                   Meeting Info (click to copy)
                 </p>
