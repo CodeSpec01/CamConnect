@@ -40,7 +40,7 @@ const Personal = () => {
 
           starts_at: new Date().toISOString(),
           custom: {
-            description: "Personal Meeting Room accessed"
+            description: "Personal Room"
           }
         }
       })

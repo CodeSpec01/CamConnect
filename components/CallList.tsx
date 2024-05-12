@@ -79,6 +79,8 @@ const CallList = ({ type }: { type: 'upcoming' | 'ended' | 'recordings' }) => {
 
     if (isLoading) return <Loader />
 
+    if (type === 'upcoming') calls.reverse();
+    
     return (
 
         <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
@@ -95,7 +97,7 @@ const CallList = ({ type }: { type: 'upcoming' | 'ended' | 'recordings' }) => {
                                 : '/icons/recordings.svg'
                     }
 
-                    title={(meeting as Call).state?.custom?.description || (meeting as CallRecording).filename.substring(0, 20) || 'No Description'}
+                    title={(meeting as Call).state?.custom?.description.substring(0,20) || (meeting as CallRecording).filename.substring(0, 20) || 'No Description'}
 
                     date={(meeting as Call).state?.startsAt?.toLocaleString()!}
 
