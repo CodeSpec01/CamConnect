@@ -102,16 +102,25 @@ const MeetingRoom = () => {
 
             <DropdownMenuContent className='border-dark-2 bg-dark-2 text-white' onClick={() => {
                 navigator.clipboard.writeText(meetingLink);
-                toast({title: "Link Copied"})
+                toast({title: "Link Copied"});
               }}>
 
-              <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]'>
-                <p>
+              <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]' onClick={() => {
+                navigator.clipboard.writeText(meetingLink);
+                toast({title: "Link Copied"});
+              }}>
+                <p onClick={() => {
+                navigator.clipboard.writeText(meetingLink);
+                toast({title: "Link Copied"});
+              }}>
                   Meeting Info (click to copy)
                 </p>
 
                 <br />
-                <p>
+                <p onClick={() => {
+                navigator.clipboard.writeText(meetingLink);
+                toast({title: "Link Copied"});
+              }}>
                   {meetingLink}
                 </p>
               </DropdownMenuItem>
