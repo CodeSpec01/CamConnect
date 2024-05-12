@@ -123,3 +123,10 @@
   backdrop-filter: blur(8px);
   --webkit-backdrop-filter: blur(8px);
 }
+
+.cl-logoImage {
+  height: 20vw;
+  width: 40vw;
+  max-width: 200px;
+  max-height: 100px;
+}
