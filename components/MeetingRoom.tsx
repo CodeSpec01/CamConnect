@@ -4,9 +4,11 @@ import { CallControls, CallParticipantsList, CallStatsButton, CallingState, Pagi
 import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { LayoutList, Users } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import EndCallButton from './EndCallButton';
 import Loader from './Loader';
+import Image from 'next/image';
+import { useToast } from '@/components/ui/use-toast';
 
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
@@ -20,9 +22,12 @@ const MeetingRoom = () => {
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
   const router = useRouter();
+  const pathName = usePathname();
+  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${pathName}`
+  const { toast } = useToast()
 
-  if(callingState != CallingState.JOINED) return <Loader />
-  
+  if (callingState != CallingState.JOINED) return <Loader />
+
   const CallLayout = () => {
 
     switch (layout) {
@@ -62,7 +67,7 @@ const MeetingRoom = () => {
 
           <div className='flex items-center'>
 
-            <DropdownMenuTrigger className='cursor-pointer rounded-2xl bg-[#202C37] px-4 py-2 hover:bg-[#4C535B]'>
+            <DropdownMenuTrigger className='cursor-pointer rounded-2xl bg-dark-2 px-4 py-2 hover:bg-[#4C535B]'>
 
               <LayoutList size={20} />
             </DropdownMenuTrigger>
@@ -87,6 +92,35 @@ const MeetingRoom = () => {
         </DropdownMenu>
 
         <CallStatsButton />
+
+        <DropdownMenu>
+
+
+          <DropdownMenuTrigger className='cursor-pointer rounded-2xl bg-dark-2 px-4 py-2 hover:bg-[#4C535B] '>
+
+            <Image src='/icons/info.svg' alt='info' height={20} width={20} className='invert' />
+
+            <DropdownMenuContent className='border-dark-2 bg-dark-2 text-white'>
+
+              <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]' onClick={() => {
+                navigator.clipboard.writeText(meetingLink);
+                toast({title: "Link Copied"})
+              }}>
+                <p>
+                  Meeting Info (click to copy)
+                </p>
+
+                <br />
+                <p>
+                  {meetingLink}
+                </p>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenuTrigger>
+
+        </DropdownMenu>
+        <DropdownMenuSeparator className='bg-[#020203]' />
+
 
         <button onClick={() => setShowParticipants((prev) => !prev)} >
 
