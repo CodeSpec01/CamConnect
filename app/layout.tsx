@@ -24,7 +24,8 @@ export default function RootLayout({
         <ClerkProvider
           appearance={{
             layout: {
-              logoImageUrl: 'icons/logo.svg'
+              logoImageUrl: 'icons/logo.svg',
+
             },
             variables: {
               colorText: '#fff',
@@ -32,7 +33,7 @@ export default function RootLayout({
               colorBackground: '#1C1F2E',
               colorInputBackground: '#252A41',
               colorInputText: '#fff'
-            }
+            },
           }}
         >
           <Toaster />
