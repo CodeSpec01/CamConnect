@@ -1,6 +1,6 @@
 'use client'
 
-import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, SpeakingWhileMutedNotification, ToggleAudioPublishingButton, useCallStateHooks } from '@stream-io/video-react-sdk';
+import { CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, SpeakingWhileMutedNotification, ToggleAudioPublishingButton, useCallStateHooks } from '@stream-io/video-react-sdk';
 import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { LayoutList, Users } from 'lucide-react';
@@ -9,9 +9,14 @@ import EndCallButton from './EndCallButton';
 import Loader from './Loader';
 import Image from 'next/image';
 import { useToast } from '@/components/ui/use-toast';
+import { CallControls } from './CallControls';
 
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
+
+function createSoundDetector() {
+  return;
+};
 
 const MeetingRoom = () => {
 
@@ -25,6 +30,8 @@ const MeetingRoom = () => {
   const pathName = usePathname();
   const meetingLink = process.env.NEXT_PUBLIC_BASE_URL + pathName
   const { toast } = useToast();
+  const { } = useMicrophoneState();
+
 
   if (callingState != CallingState.JOINED) return <Loader />
 
@@ -62,10 +69,7 @@ const MeetingRoom = () => {
 
       <div className='fixed bottom-0 flex w-[calc(100vw-1vw)] items-center justify-center gap-5 flex-wrap pb-5 box-border md:pb-10'>
 
-        <CallControls onLeave={() => router.push('/')} />
-        <SpeakingWhileMutedNotification text='' >
-          <ToggleAudioPublishingButton />
-        </SpeakingWhileMutedNotification>
+        <CallControls />
 
         <DropdownMenu>
 
