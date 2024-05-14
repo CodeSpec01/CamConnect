@@ -19,12 +19,13 @@ const MeetingRoom = () => {
   const [showParticipants, setShowParticipants] = useState(false);
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get('personal');
-  const { useCallCallingState } = useCallStateHooks();
+  const { useCallCallingState, useMicrophoneState } = useCallStateHooks();
   const callingState = useCallCallingState();
   const router = useRouter();
   const pathName = usePathname();
   const meetingLink = process.env.NEXT_PUBLIC_BASE_URL + pathName
   const { toast } = useToast()
+  const { microphone, isMute } = useMicrophoneState();
 
   if (callingState != CallingState.JOINED) return <Loader />
 
@@ -42,6 +43,7 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition='right' />
     }
   }
+  
 
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 justify-center flex'>
@@ -62,6 +64,13 @@ const MeetingRoom = () => {
       <div className='fixed bottom-0 flex w-[calc(100vw-1vw)] items-center justify-center gap-5 flex-wrap pb-5 box-border md:pb-10'>
 
         <CallControls onLeave={() => router.push('/')} />
+        <button onClick={() => microphone.toggle()}>
+          {isMute ? (
+            <span className="my-icon-disabled" >Unmute</span>
+          ) : (
+            <span className="my-icon-enabled" >Mute</span>
+          )}
+        </button>
 
         <DropdownMenu>
 
@@ -101,26 +110,26 @@ const MeetingRoom = () => {
             <Image src='/icons/info.svg' alt='info' height={20} width={20} className='invert' />
 
             <DropdownMenuContent className='border-dark-2 bg-dark-2 text-white' onClick={() => {
-                navigator.clipboard.writeText(meetingLink);
-                toast({title: "Link Copied"});
-              }}>
+              navigator.clipboard.writeText(meetingLink);
+              toast({ title: "Link Copied" });
+            }}>
 
               <DropdownMenuItem className='cursor-pointer focus:bg-[#020203] focus:text-white flex flex-col max-w-[100vw]' onClick={() => {
                 navigator.clipboard.writeText(meetingLink);
-                toast({title: "Link Copied"});
+                toast({ title: "Link Copied" });
               }}>
                 <p onClick={() => {
-                navigator.clipboard.writeText(meetingLink);
-                toast({title: "Link Copied"});
-              }}>
+                  navigator.clipboard.writeText(meetingLink);
+                  toast({ title: "Link Copied" });
+                }}>
                   Meeting Info (click to copy)
                 </p>
 
                 <br />
                 <p onClick={() => {
-                navigator.clipboard.writeText(meetingLink);
-                toast({title: "Link Copied"});
-              }}>
+                  navigator.clipboard.writeText(meetingLink);
+                  toast({ title: "Link Copied" });
+                }}>
                   {meetingLink}
                 </p>
               </DropdownMenuItem>
