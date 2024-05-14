@@ -25,7 +25,6 @@ const MeetingRoom = () => {
   const pathName = usePathname();
   const meetingLink = process.env.NEXT_PUBLIC_BASE_URL + pathName
   const { toast } = useToast()
-  const { microphone, isMute } = useMicrophoneState();
 
   if (callingState != CallingState.JOINED) return <Loader />
 
@@ -64,13 +63,6 @@ const MeetingRoom = () => {
       <div className='fixed bottom-0 flex w-[calc(100vw-1vw)] items-center justify-center gap-5 flex-wrap pb-5 box-border md:pb-10'>
 
         <CallControls onLeave={() => router.push('/')} />
-        <button onClick={() => microphone.toggle()}>
-          {isMute ? (
-            <span className="my-icon-disabled" >Unmute</span>
-          ) : (
-            <span className="my-icon-enabled" >Mute</span>
-          )}
-        </button>
 
         <DropdownMenu>
 
