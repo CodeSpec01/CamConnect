@@ -19,6 +19,11 @@ const config = {
     },
     extend: {
       colors: {
+        green: {
+          // 1: "#99FF66",
+          1: "#44CC00",
+          2: "#A0FF7063",
+        },
         dark: {
           1: "#161925",
           2: "#1C1F2E",
@@ -28,7 +33,7 @@ const config = {
           1: "#C9DDFF",
         },
         orange: {
-          1: "#FF752D",
+          1: "#CC4700",
         },
         blue: {
           1: "#0E79F9",

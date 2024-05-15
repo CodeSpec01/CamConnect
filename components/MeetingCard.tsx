@@ -43,7 +43,7 @@ const MeetingCard = ({
             <article className={cn("flex justify-center relative", {})}>
                 {!isPreviousMeeting && (
                     <div className="flex gap-2">
-                        <Button onClick={handleClick} className="rounded bg-blue-1 px-6">
+                        <Button onClick={handleClick} className="rounded bg-green-1 px-6">
                             {buttonIcon1 && (
                                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
                             )}

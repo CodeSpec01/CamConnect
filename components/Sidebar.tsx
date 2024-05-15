@@ -21,7 +21,7 @@ const Sidebar = () => {
 
                     return (
                         
-                        <Link href={link.route} key={link.label} className={`${isActive ? 'bg-dark-3' : "bg-none"} flex gap-4 items-center p-4 rounded-lg justify-start`}>
+                        <Link href={link.route} key={link.label} className={`${isActive ? 'bg-green-2' : "bg-none"} flex gap-4 items-center p-4 rounded-lg justify-start`}>
 
                             <Image src={link.imageURL} alt={link.label} height={24} width={24} />
                             <p className='text-lg font-semibold max-lg:hidden'>{link.label}</p>
