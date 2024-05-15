@@ -77,18 +77,13 @@ const MeetingTypeList = () => {
 
             const meetingId = id.startsWith(`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/`) ? id.replace(`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/`, '') : id
 
-            console.log('meeting id',meetingId)
-            console.log('id',id)
-
             const call = client.call('default', meetingId);
 
             if (!call) throw new Error("Something went wrong, please try again later");
 
-            await call.join();
+            await call.get();
 
-            setCallDetails(call);
-
-            router.push(`/meeting/${call.id}`);
+            router.push(`/meeting/${meetingId}`);
 
             toast({ title: "Meeting Joined !" })
 
