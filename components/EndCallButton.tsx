@@ -25,7 +25,7 @@ const EndCallButton = () => {
             className="bg-red-500"
         >
 
-            End call for Everyoen
+            End call for Everyone
         </Button>
     )
 }

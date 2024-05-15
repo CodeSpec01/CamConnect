@@ -69,6 +69,39 @@ const MeetingTypeList = () => {
         }
     }
 
+    const joinMeeting = async (id: string) => {
+
+        if (!user || !client) return;
+
+        try {
+
+            const meetingId = id.startsWith(`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/`) ? id.replace(`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/`, '') : id
+
+            console.log('meeting id',meetingId)
+            console.log('id',id)
+
+            const call = client.call('default', meetingId);
+
+            if (!call) throw new Error("Something went wrong, please try again later");
+
+            await call.join();
+
+            setCallDetails(call);
+
+            router.push(`/meeting/${call.id}`);
+
+            toast({ title: "Meeting Joined !" })
+
+        } catch (error) {
+
+            console.log(error)
+
+            toast({
+                title: "Failed to join meeting. Please check the link !",
+            })
+        }
+    }
+
     const router = useRouter();
 
     const [meetingState, setMeetingState] = useState<'isJoiningMeeting' | 'isScheduleMeeting' | 'isInstantMeeting' | undefined>()
@@ -191,11 +224,19 @@ const MeetingTypeList = () => {
                 title="Join a Meeting"
                 className="text-center"
                 buttonText="Join Meeting"
-                handleClick={createMeeting}
+                handleClick={() => joinMeeting(values.link)}
             >
 
                 <Input 
                     placeholder="Enter meeting Link"
+                    className="border-none bg-dark-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    onChange={(e) => setValues({...values, link: e.target.value})}
+                />
+
+                <span className="text-base leading-[22px] text-sky-1">OR</span>
+
+                <Input 
+                    placeholder="Enter meeting ID"
                     className="border-none bg-dark-1 focus-visible:ring-0 focus-visible:ring-offset-0"
                     onChange={(e) => setValues({...values, link: e.target.value})}
                 />
